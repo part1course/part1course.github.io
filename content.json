@@ -1,0 +1,88 @@
+{
+    "contentList": [
+        {
+            "type": "video",
+            "src": "https://aoldfwcentervideos.s3.us-east-1.amazonaws.com/a_biography_of_gurudev.mp4"
+        },
+
+        {
+            "type": "content",
+            "data": [
+                {
+                    "title": "Product 1",
+                    "description": "Best quality organic product.",
+                    "image": "https://your-s3-bucket.s3.amazonaws.com/image1.jpg"
+                },
+                {
+                    "title": "Product 6",
+                    "description": "Herbal shampoo and conditioner.",
+                    "image": "https://your-s3-bucket.s3.amazonaws.com/image6.jpg"
+                }
+            ]
+        }
+
+        {
+            "type": "video",
+            "src": "https://aoldfwcentervideos.s3.us-east-1.amazonaws.com/MedicalBenefits.mp4"
+        },
+
+
+        {
+            "type": "content",
+            "data": [
+                {
+                    "title": "Product 1",
+                    "description": "Best quality organic product.",
+                    "image": "https://your-s3-bucket.s3.amazonaws.com/image1.jpg"
+                },
+                {
+                    "title": "Product 6",
+                    "description": "Herbal shampoo and conditioner.",
+                    "image": "https://your-s3-bucket.s3.amazonaws.com/image6.jpg"
+                }
+            ]
+        }
+
+        {
+            "type": "video",
+            "src": "https://aoldfwcentervideos.s3.us-east-1.amazonaws.com/WCF.mp4"
+        },
+
+        {
+            "type": "content",
+            "data": [
+                {
+                    "title": "Product 1",
+                    "description": "Best quality organic product.",
+                    "image": "https://your-s3-bucket.s3.amazonaws.com/image1.jpg"
+                },
+                {
+                    "title": "Product 6",
+                    "description": "Herbal shampoo and conditioner.",
+                    "image": "https://your-s3-bucket.s3.amazonaws.com/image6.jpg"
+                }
+            ]
+        }
+
+
+        {
+            "type": "pdf",
+            "src": "https://aoldfwcentervideos.s3.us-east-1.amazonaws.com/aol_service_projects.pdf"
+        },
+        {
+            "type": "content",
+            "data": [
+                {
+                    "title": "Product 1",
+                    "description": "Best quality organic product.",
+                    "image": "https://your-s3-bucket.s3.amazonaws.com/image1.jpg"
+                },
+                {
+                    "title": "Product 2",
+                    "description": "Handmade skincare essentials.",
+                    "image": "https://your-s3-bucket.s3.amazonaws.com/image2.jpg"
+                }
+            ]
+        }
+    ]
+}
