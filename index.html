@@ -108,32 +108,7 @@
              }
          }
          
-         /*function loadContent(contentData) {
-             const cardsContainer = document.getElementById("contentCards");
-             cardsContainer.innerHTML = "";
          
-             const chunk = contentData.slice(recordIndex, recordIndex + 4);
-             chunk.forEach(item => {
-                 const card = document.createElement("div");
-                 card.className = "card";
-                 card.innerHTML = `<img src="${item.image}" alt="${item.title}">
-                                   <h3>${item.title}</h3>
-                                   <p>${item.description}</p>`;
-                 cardsContainer.appendChild(card);
-             });
-         
-             recordIndex += 4;
-         
-             if (recordIndex < contentData.length) {
-                 setTimeout(() => { loadContent(contentData); }, 20000);
-             } else {
-                 recordIndex = 0;
-                 setTimeout(() => {
-                     currentIndex = (currentIndex + 1) % contentList.length;
-                     loadNextContent();
-                 }, 20000);
-             }
-         }*/
          function loadContent(contentData) {
          const cardsContainer = document.getElementById("contentCards");
          cardsContainer.innerHTML = ""; // Clear existing content
