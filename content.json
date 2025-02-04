@@ -19,7 +19,7 @@
                     "image": "https://your-s3-bucket.s3.amazonaws.com/image6.jpg"
                 }
             ]
-        }
+        },
 
         {
             "type": "video",
@@ -41,7 +41,7 @@
                     "image": "https://your-s3-bucket.s3.amazonaws.com/image6.jpg"
                 }
             ]
-        }
+        },
 
         {
             "type": "video",
@@ -62,7 +62,7 @@
                     "image": "https://your-s3-bucket.s3.amazonaws.com/image6.jpg"
                 }
             ]
-        }
+        },
 
 
         {
