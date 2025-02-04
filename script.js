@@ -35,6 +35,7 @@ async function fetchContent() {
     try {
         const response = await fetch(contentJsonUrl + "?nocache=" + new Date().getTime());
         const data = await response.json();
+        console.log(data);
         contentList = data.contentList;
         console.log(contentList);
         loadNextContent();
