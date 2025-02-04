@@ -8,6 +8,7 @@
       "type": "content",
       "data": [
         {
+          "id": 1,
           "title": "Art of Living Part 2",
           "type": "In-Person",
           "location": "2601 E State Highway 121, #309, Lewisville, TX, 75067",
@@ -21,6 +22,7 @@
           "details_link": "https://members.us.artofliving.org/us-en/course/a04Vu00000AHiuvIAD?ctype=22119"
         },
         {
+          "id": 2,
           "title": "Sahaj Samadhi Meditation",
           "type": "In-Person",
           "location": "2810 routh creek parkway, richardson, TX, 75082",
