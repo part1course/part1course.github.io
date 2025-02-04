@@ -91,17 +91,26 @@ function loadNextContent() {
 }
 
 function generateQRCode(link, elementId) {
-    if (link) {
-        document.getElementById(elementId).innerHTML = "";
-        new QRCode(document.getElementById(elementId), {
+    const qrElement = document.getElementById(elementId);
+    
+    if (!qrElement) {
+        console.error("QR Code container not found:", elementId);
+        return;
+    }
+
+    qrElement.innerHTML = ""; // Clear any existing QR code
+
+    if (typeof QRCode !== "undefined" && link) {
+        new QRCode(qrElement, {
             text: link,
             width: 150,
             height: 150
         });
     } else {
-        document.getElementById(elementId).innerHTML = "<p> </p>";
+        qrElement.innerHTML = "<p>No link available</p>";
     }
 }
+
 
 async function loadPdf(pdfUrl) {
     try {
