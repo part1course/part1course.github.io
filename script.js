@@ -75,15 +75,15 @@ function loadNextContent() {
 function displayContentAsCards(dataList) {
     let cardsHtml = '';
 
-    // Loop through contentList to generate up to 4 cards per row
-    const rows = Math.ceil(dataList.length / 4);
+    // Loop through contentList to generate up to 2 cards per row
+    const rows = Math.ceil(dataList.length / 2);
     for (let i = 0; i < rows; i++) {
-        cardsHtml += '<div class="row mb-4">';  // Row for cards
-        for (let j = 0; j < 4; j++) {
-            const content = dataList[i * 4 + j];
+        cardsHtml += '<div class="row mb-6">';  // Row for cards
+        for (let j = 0; j < 2; j++) {
+            const content = dataList[i * 2 + j];
             if (content) {
                 cardsHtml += `
-                    <div class="col-md-3">
+                    <div class="col-md-6">
                         <div class="card">
                             <img src="https://via.placeholder.com/150" class="card-img-top" alt="Image">
                             <div class="card-body">
@@ -95,7 +95,6 @@ function displayContentAsCards(dataList) {
                                 <ul class="list-unstyled">
                                     ${(Array.isArray(content.timings) ? content.timings : []).map(time => `<li>${time}</li>`).join('')}
                                 </ul>
-                                <a href="${content.details_link}" class="btn btn-primary" target="_blank">More Details</a>
                                 <div id="qrcode" class="mt-3"></div>
                             </div>
                         </div>
