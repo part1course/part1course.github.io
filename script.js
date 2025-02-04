@@ -95,7 +95,7 @@ function displayContentAsCards(dataList) {
                                 <ul class="list-unstyled card-text">
                                     ${(Array.isArray(content.timings) ? content.timings : []).map(time => `<li>${time}</li>`).join('')}
                                 </ul>
-                                <div id="qrcode" class="mt-3"></div>
+                                <div id="qrcode-${content.id}" class="mt-3"></div>
                             </div>
                         </div>
                     </div>
@@ -106,7 +106,10 @@ function displayContentAsCards(dataList) {
     }
 
     document.getElementById("contentCards").innerHTML = cardsHtml;
-    generateQRCode(dataList[0].details_link, "qrcode");
+    // Generate QR codes for each content item
+    currentContent.data.forEach((item) => {
+        generateQRCode(item.details_link, `qrcode-${item.id}`);
+    });
 
     setTimeout(() => {
         currentIndex = (currentIndex + 1) % dataList.length;
