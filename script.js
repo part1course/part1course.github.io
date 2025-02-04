@@ -35,7 +35,7 @@ async function fetchContent() {
     try {
         const response = await fetch(contentJsonUrl + "?nocache=" + new Date().getTime());
         const data = await response.json();
-        contentList = data;
+        contentList = data.contentList;
         loadNextContent();
     } catch (error) {
         console.error("Error fetching content:", error);
