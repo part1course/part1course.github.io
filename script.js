@@ -66,21 +66,21 @@ function loadNextContent() {
         document.getElementById("pdfContainer").style.display = "block";
         loadPdf(currentContent.src);
     } else if (currentContent.type === "content") {
-        displayContentAsCards(currentContent);
+        displayContentAsCards(currentContent.data);
     } else {
         console.warn("Unknown content type:", currentContent.type);
     }
 }
 
-function displayContentAsCards() {
+function displayContentAsCards(dataList) {
     let cardsHtml = '';
 
     // Loop through contentList to generate up to 4 cards per row
-    const rows = Math.ceil(contentList.length / 4);
+    const rows = Math.ceil(dataList.length / 4);
     for (let i = 0; i < rows; i++) {
         cardsHtml += '<div class="row mb-4">';  // Row for cards
         for (let j = 0; j < 4; j++) {
-            const content = contentList[i * 4 + j];
+            const content = dataList[i * 4 + j];
             if (content) {
                 cardsHtml += `
                     <div class="col-md-3">
@@ -107,12 +107,12 @@ function displayContentAsCards() {
     }
 
     document.getElementById("contentCards").innerHTML = cardsHtml;
-    generateQRCode(contentList[0].details_link, "qrcode");
+    generateQRCode(dataList[0].details_link, "qrcode");
 
     setTimeout(() => {
-        currentIndex = (currentIndex + 1) % contentList.length;
+        currentIndex = (currentIndex + 1) % dataList.length;
         loadNextContent();
-    }, 20000);
+    }, 3000);
 }
 
 async function loadPdf(pdfUrl) {
@@ -140,7 +140,7 @@ async function renderPage() {
     setTimeout(() => {
         currentPage = currentPage < pdfDoc.numPages ? currentPage + 1 : 1;
         renderPage();
-    }, 10000);
+    }, 1000);
 }
 
 window.onload = function() {
