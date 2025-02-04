@@ -7,10 +7,10 @@ let currentPage = 1;
 
 function scheduleMidnightRefresh() {
     const now = new Date();
-    const midnight = new Date(now);
+    const midnight = new Date();
     midnight.setHours(24, 0, 0, 0);
 
-    const timeUntilMidnight = midnight - now;
+    const timeUntilMidnight = midnight.getTime() - now.getTime();
     console.log("Page will refresh in:", timeUntilMidnight / 1000, "seconds");
 
     setTimeout(() => {
@@ -18,48 +18,62 @@ function scheduleMidnightRefresh() {
     }, timeUntilMidnight);
 }
 
+function generateQRCode(link) {
+    if (link) {
+        document.getElementById("qrcode").innerHTML = "";
+        new QRCode(document.getElementById("qrcode"), {
+            text: link,
+            width: 150,
+            height: 150
+        });
+    } else {
+        document.getElementById("qrcode").innerHTML = "<p> </p>";
+    }
+}
+
 async function fetchContent() {
     try {
         const response = await fetch(contentJsonUrl + "?nocache=" + new Date().getTime());
         const data = await response.json();
-        contentList = data.contentList;
+        contentList = data;
         loadNextContent();
     } catch (error) {
         console.error("Error fetching content:", error);
     }
 }
 
-function loadContent(contentData) {
-    const cardsContainer = document.getElementById("contentCards");
-    cardsContainer.innerHTML = "";
+function loadNextContent() {
+    if (contentList.length === 0) return;
+    const currentContent = contentList[currentIndex];
 
-    const chunk = contentData.slice(recordIndex, recordIndex + 4);
-    chunk.forEach(item => {
-        const card = document.createElement("div");
-        card.className = "card";
+    document.getElementById("videoContainer").style.display = "none";
+    document.getElementById("contentContainer").style.display = "none";
+    document.getElementById("pdfContainer").style.display = "none";
 
-        const img = document.createElement("img");
-        img.src = item.image;
-        img.alt = item.title;
-        card.appendChild(img);
-
-        const h3 = document.createElement("h3");
-        h3.textContent = item.title;
-        card.appendChild(h3);
-
-        const p = document.createElement("p");
-        p.textContent = item.description;
-        card.appendChild(p);
-
-        cardsContainer.appendChild(card);
-    });
-
-    recordIndex += 4;
-
-    if (recordIndex < contentData.length) {
-        setTimeout(() => { loadContent(contentData); }, 20000);
+    if (currentContent.type === "video") {
+        document.getElementById("videoContainer").style.display = "block";
+        document.getElementById("videoSource").src = currentContent.src;
+        const videoPlayer = document.getElementById("videoPlayer");
+        videoPlayer.load();
+        videoPlayer.play();
+        videoPlayer.onended = () => setTimeout(() => {
+            currentIndex = (currentIndex + 1) % contentList.length;
+            loadNextContent();
+        }, 3000);
+    } else if (currentContent.type === "pdf") {
+        document.getElementById("pdfContainer").style.display = "block";
+        loadPdf(currentContent.src);
     } else {
-        recordIndex = 0;
+        document.getElementById("contentContainer").innerHTML = `
+            <h2>${currentContent.title}</h2>
+            <p><strong>Type:</strong> ${currentContent.type}</p>
+            <p><strong>Location:</strong> ${currentContent.location}</p>
+            <p><strong>Instructor:</strong> ${currentContent.instructors}</p>
+            <p><strong>Timings:</strong></p>
+            <ul>${currentContent.timings.map(time => `<li>${time}</li>`).join('')}</ul>
+            <div id="qrcode"></div>
+        `;
+        generateQRCode(currentContent.details_link);
         setTimeout(() => {
             currentIndex = (currentIndex + 1) % contentList.length;
             loadNextContent();
@@ -95,50 +109,7 @@ async function renderPage() {
     }, 10000);
 }
 
-function loadNextContent() {
-    if (contentList.length === 0) return;
-    const currentContent = contentList[currentIndex];
-
-    document.getElementById("videoContainer").style.display = "none";
-    document.getElementById("youtubeContainer").style.display = "none";
-    document.getElementById("contentContainer").style.display = "none";
-    document.getElementById("pdfContainer").style.display = "none";
-
-    if (currentContent.type === "video") {
-        document.getElementById("videoContainer").style.display = "block";
-        document.getElementById("videoSource").src = currentContent.src;
-        const videoPlayer = document.getElementById("videoPlayer");
-        videoPlayer.load();
-        videoPlayer.play();
-        videoPlayer.onended = () => setTimeout(() => { 
-            currentIndex = (currentIndex + 1) % contentList.length; 
-            loadNextContent(); 
-        }, 3000);
-
-    } else if (currentContent.type === "youtube") {
-        document.getElementById("youtubeContainer").style.display = "block";
-        document.getElementById("youtubePlayer").src = currentContent.src;
-        setTimeout(() => { 
-            currentIndex = (currentIndex + 1) % contentList.length; 
-            loadNextContent(); 
-        }, 63000);
-
-    } else if (currentContent.type === "content") {
-        document.getElementById("contentContainer").style.display = "flex";
-        recordIndex = 0;
-        loadContent(currentContent.data);
-
-    } else if (currentContent.type === "pdf") {
-        document.getElementById("pdfContainer").style.display = "block";
-        loadPdf(currentContent.src);
-        setTimeout(() => { 
-            currentIndex = (currentIndex + 1) % contentList.length; 
-            loadNextContent(); 
-        }, 10000 * pdfDoc.numPages + 3000);
-    }
-}
-
-window.onload = function () {
+window.onload = function() {
     scheduleMidnightRefresh();
     fetchContent();
 };
