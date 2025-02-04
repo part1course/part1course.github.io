@@ -72,7 +72,7 @@ function loadNextContent() {
             <p><strong>Location:</strong> ${currentContent.location}</p>
             <p><strong>Instructor:</strong> ${currentContent.instructors}</p>
             <p><strong>Timings:</strong></p>
-            <ul>${currentContent.timings.map(time => `<li>${time}</li>`).join('')}</ul>
+            <ul>${(Array.isArray(currentContent.timings) ? currentContent.timings : []).map(time => `<li>${time}</li>`).join('')}</ul>
             <div id="qrcode"></div>
         `;
         generateQRCode(currentContent.details_link);
