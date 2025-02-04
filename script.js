@@ -65,8 +65,10 @@ function loadNextContent() {
     } else if (currentContent.type === "pdf") {
         document.getElementById("pdfContainer").style.display = "block";
         loadPdf(currentContent.src);
-    } else {
+    } else if (currentContent.type === "content") {
         displayContentAsCards(currentContent);
+    } else {
+        console.warn("Unknown content type:", currentContent.type);
     }
 }
 
