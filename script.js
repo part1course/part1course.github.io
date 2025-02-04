@@ -70,6 +70,11 @@ function loadNextContent() {
     } else {
         console.warn("Unknown content type:", currentContent.type);
     }
+
+    setTimeout(() => {
+        currentIndex = (currentIndex + 1) % dataList.length;
+        loadNextContent();
+    }, 2000);
 }
 
 function displayContentAsCards(dataList) {
@@ -110,11 +115,6 @@ function displayContentAsCards(dataList) {
     currentContent.data.forEach((item) => {
         generateQRCode(item.details_link, `qrcode-${item.id}`);
     });
-
-    setTimeout(() => {
-        currentIndex = (currentIndex + 1) % dataList.length;
-        loadNextContent();
-    }, 3000);
 }
 
 async function loadPdf(pdfUrl) {
