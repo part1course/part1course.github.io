@@ -85,7 +85,7 @@ function displayContentAsCards(dataList) {
                 cardsHtml += `
                     <div class="col-md-6">
                         <div class="card">
-                            <img src="https://via.placeholder.com/150" class="card-img-top" alt="Image">
+                            <!--<img src="https://via.placeholder.com/150" class="card-img-top" alt="Image">-->
                             <div class="card-body">
                                 <h5 class="card-title">${content.title}</h5>
                                 <p class="card-text"><strong>Type:</strong> ${content.type}</p>
