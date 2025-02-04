@@ -1,210 +1,243 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Content Display</title>
-    <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100vw;
-            height: 100vh;
-            overflow: hidden;
-            background: black;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            background-image: url('background.png');
-            /* background-size: 400px 400px; */
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-        }
-        #videoContainer, #contentContainer, #youtubeContainer, #pdfContainer {
-            width: 100%;
-            height: 100%;
-            display: none;
-        }
-        video, iframe {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        canvas {
-            width: 100%;
-            height: 100%;
-            background: white;
-        }
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            max-width: 80%;
-        }
-        .card {
-            background: white;
-            color: black;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            width: 250px;
-        }
-        .card img {
-            width: 100%;
-            height: auto;
-            border-radius: 5px;
-        }
-    </style>
-</head>
-<body>
-    <div id="contentContainer">
-        <div class="cards" id="contentCards"></div>
-    </div>
-
-    <div id="videoContainer">
-        <video id="videoPlayer" muted autoplay></video>
-            <source id="videoSource" src="" type="video/mp4">
-        </video>
-    </div>
-
-    <div id="youtubeContainer">
-        <iframe id="youtubePlayer" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-    </div>
-
-    <div id="pdfContainer">
-        <canvas id="pdfCanvas"></canvas>
-    </div>
-
-    <script>
-        //const contentJsonUrl = "https://your-s3-bucket.s3.amazonaws.com/content.json"; // 🔹 Replace with your actual S3 URL
-        const contentJsonUrl = "content.json";
-        let contentList = [];
-        let currentIndex = 0;
-        let recordIndex = 0;
-        let pdfDoc = null;
-        let currentPage = 1;
-
-        function scheduleMidnightRefresh() {
-            const now = new Date();
-            const midnight = new Date(now);
-            midnight.setHours(24, 0, 0, 0);
-
-            const timeUntilMidnight = midnight - now;
-            console.log("Page will refresh in:", timeUntilMidnight / 1000, "seconds");
-
-            setTimeout(() => {
-                location.reload();
-            }, timeUntilMidnight);
-        }
-
-        async function fetchContent() {
-            try {
-                const response = await fetch(contentJsonUrl + "?nocache=" + new Date().getTime());
-                const data = await response.json();
-                contentList = data.contentList;
-                loadNextContent();
-            } catch (error) {
-                console.error("Error fetching content:", error);
-            }
-        }
-
-        function loadContent(contentData) {
-            const cardsContainer = document.getElementById("contentCards");
-            cardsContainer.innerHTML = "";
-
-            const chunk = contentData.slice(recordIndex, recordIndex + 4);
-            chunk.forEach(item => {
-                const card = document.createElement("div");
-                card.className = "card";
-                card.innerHTML = `<img src="${item.image}" alt="${item.title}">
-                                  <h3>${item.title}</h3>
-                                  <p>${item.description}</p>`;
-                cardsContainer.appendChild(card);
-            });
-
-            recordIndex += 4;
-
-            if (recordIndex < contentData.length) {
-                setTimeout(() => { loadContent(contentData); }, 20000);
-            } else {
-                recordIndex = 0;
-                setTimeout(() => {
-                    currentIndex = (currentIndex + 1) % contentList.length;
-                    loadNextContent();
-                }, 20000);
-            }
-        }
-
-        async function loadPdf(pdfUrl) {
-            try {
-                pdfDoc = await pdfjsLib.getDocument(pdfUrl).promise;
-                currentPage = 1;
-                renderPage();
-            } catch (error) {
-                console.error("Error loading PDF:", error);
-            }
-        }
-
-        async function renderPage() {
-            if (!pdfDoc) return;
-            const canvas = document.getElementById("pdfCanvas");
-            const ctx = canvas.getContext("2d");
-            const page = await pdfDoc.getPage(currentPage);
-            const viewport = page.getViewport({ scale: 2 });
-
-            canvas.width = viewport.width;
-            canvas.height = viewport.height;
-
-            await page.render({ canvasContext: ctx, viewport: viewport }).promise;
-
-            setTimeout(() => {
-                currentPage = currentPage < pdfDoc.numPages ? currentPage + 1 : 1;
-                renderPage();
-            }, 10000);
-        }
-
-        function loadNextContent() {
-            if (contentList.length === 0) return;
-            const currentContent = contentList[currentIndex];
-
-            document.getElementById("videoContainer").style.display = "none";
-            document.getElementById("youtubeContainer").style.display = "none";
-            document.getElementById("contentContainer").style.display = "none";
-            document.getElementById("pdfContainer").style.display = "none";
-
-            if (currentContent.type === "video") {
-                document.getElementById("videoContainer").style.display = "block";
-                document.getElementById("videoSource").src = currentContent.src;
-                const videoPlayer = document.getElementById("videoPlayer");
-                videoPlayer.load();
-                videoPlayer.play();
-                videoPlayer.onended = () => setTimeout(() => { currentIndex = (currentIndex + 1) % contentList.length; loadNextContent(); }, 3000);
-
-            } else if (currentContent.type === "youtube") {
-                document.getElementById("youtubeContainer").style.display = "block";
-                document.getElementById("youtubePlayer").src = currentContent.src;
-                setTimeout(() => { currentIndex = (currentIndex + 1) % contentList.length; loadNextContent(); }, 60000 + 3000);
-
-            } else if (currentContent.type === "content") {
-                document.getElementById("contentContainer").style.display = "flex";
-                recordIndex = 0;
-                loadContent(currentContent.data);
-
-            } else if (currentContent.type === "pdf") {
-                document.getElementById("pdfContainer").style.display = "block";
-                loadPdf(currentContent.src);
-                setTimeout(() => { currentIndex = (currentIndex + 1) % contentList.length; loadNextContent(); }, 10000 * pdfDoc.numPages + 3000);
-            }
-        }
-
-        window.onload = function () {
-            scheduleMidnightRefresh();
-            fetchContent();
-        };
-    </script>
-</body>
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Dynamic Content Display</title>
+      <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+      <style>
+         html, body {
+         margin: 0;
+         padding: 0;
+         width: 100vw;
+         height: 100vh;
+         overflow: hidden;
+         background: black;
+         color: white;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         text-align: center;
+         background-image: url('background.png');
+         /* background-size: 400px 400px; */
+         background-size: cover;
+         background-repeat: no-repeat;
+         background-attachment: fixed;
+         }
+         #videoContainer, #contentContainer, #youtubeContainer, #pdfContainer {
+         width: 100%;
+         height: 100%;
+         display: none;
+         }
+         video, iframe {
+         width: 100%;
+         height: 100%;
+         object-fit: cover;
+         }
+         canvas {
+         width: 100%;
+         height: 100%;
+         background: white;
+         }
+         .cards {
+         display: grid;
+         grid-template-columns: repeat(2, 1fr);
+         gap: 20px;
+         max-width: 80%;
+         }
+         .card {
+         background: white;
+         color: black;
+         padding: 20px;
+         border-radius: 10px;
+         text-align: center;
+         width: 250px;
+         }
+         .card img {
+         width: 100%;
+         height: auto;
+         border-radius: 5px;
+         }
+      </style>
+   </head>
+   <body>
+      <div id="contentContainer">
+         <div class="cards" id="contentCards"></div>
+      </div>
+      <div id="videoContainer">
+         <video id="videoPlayer" muted autoplay></video>
+         <source id="videoSource" src="" type="video/mp4">
+         </video>
+      </div>
+      <div id="youtubeContainer">
+         <iframe id="youtubePlayer" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+      <div id="pdfContainer">
+         <canvas id="pdfCanvas"></canvas>
+      </div>
+      <script>
+         //const contentJsonUrl = "https://your-s3-bucket.s3.amazonaws.com/content.json"; // 🔹 Replace with your actual S3 URL
+         const contentJsonUrl = "content.json";
+         let contentList = [];
+         let currentIndex = 0;
+         let recordIndex = 0;
+         let pdfDoc = null;
+         let currentPage = 1;
+         
+         function scheduleMidnightRefresh() {
+             const now = new Date();
+             const midnight = new Date(now);
+             midnight.setHours(24, 0, 0, 0);
+         
+             const timeUntilMidnight = midnight - now;
+             console.log("Page will refresh in:", timeUntilMidnight / 1000, "seconds");
+         
+             setTimeout(() => {
+                 location.reload();
+             }, timeUntilMidnight);
+         }
+         
+         async function fetchContent() {
+             try {
+                 const response = await fetch(contentJsonUrl + "?nocache=" + new Date().getTime());
+                 const data = await response.json();
+                 contentList = data.contentList;
+                 loadNextContent();
+             } catch (error) {
+                 console.error("Error fetching content:", error);
+             }
+         }
+         
+         /*function loadContent(contentData) {
+             const cardsContainer = document.getElementById("contentCards");
+             cardsContainer.innerHTML = "";
+         
+             const chunk = contentData.slice(recordIndex, recordIndex + 4);
+             chunk.forEach(item => {
+                 const card = document.createElement("div");
+                 card.className = "card";
+                 card.innerHTML = `<img src="${item.image}" alt="${item.title}">
+                                   <h3>${item.title}</h3>
+                                   <p>${item.description}</p>`;
+                 cardsContainer.appendChild(card);
+             });
+         
+             recordIndex += 4;
+         
+             if (recordIndex < contentData.length) {
+                 setTimeout(() => { loadContent(contentData); }, 20000);
+             } else {
+                 recordIndex = 0;
+                 setTimeout(() => {
+                     currentIndex = (currentIndex + 1) % contentList.length;
+                     loadNextContent();
+                 }, 20000);
+             }
+         }*/
+         function loadContent(contentData) {
+         const cardsContainer = document.getElementById("contentCards");
+         cardsContainer.innerHTML = ""; // Clear existing content
+         
+         const chunk = contentData.slice(recordIndex, recordIndex + 4);
+         chunk.forEach(item => {
+         const card = document.createElement("div");
+         card.className = "card";
+         
+         const img = document.createElement("img");
+         img.src = item.image;
+         img.alt = item.title;
+         card.appendChild(img);
+         
+         const h3 = document.createElement("h3");
+         h3.textContent = item.title; // Use textContent, not innerHTML
+         card.appendChild(h3);
+         
+         const p = document.createElement("p");
+         p.textContent = item.description; // Use textContent, not innerHTML
+         card.appendChild(p);
+         
+         cardsContainer.appendChild(card);
+         });
+         
+         recordIndex += 4;
+         
+         if (recordIndex < contentData.length) {
+         setTimeout(() => { loadContent(contentData); }, 20000);
+         } else {
+         recordIndex = 0;
+         setTimeout(() => {
+             currentIndex = (currentIndex + 1) % contentList.length;
+             loadNextContent();
+         }, 20000);
+         }
+         }
+         
+         async function loadPdf(pdfUrl) {
+             try {
+                 pdfDoc = await pdfjsLib.getDocument(pdfUrl).promise;
+                 currentPage = 1;
+                 renderPage();
+             } catch (error) {
+                 console.error("Error loading PDF:", error);
+             }
+         }
+         
+         async function renderPage() {
+             if (!pdfDoc) return;
+             const canvas = document.getElementById("pdfCanvas");
+             const ctx = canvas.getContext("2d");
+             const page = await pdfDoc.getPage(currentPage);
+             const viewport = page.getViewport({ scale: 2 });
+         
+             canvas.width = viewport.width;
+             canvas.height = viewport.height;
+         
+             await page.render({ canvasContext: ctx, viewport: viewport }).promise;
+         
+             setTimeout(() => {
+                 currentPage = currentPage < pdfDoc.numPages ? currentPage + 1 : 1;
+                 renderPage();
+             }, 10000);
+         }
+         
+         function loadNextContent() {
+             if (contentList.length === 0) return;
+             const currentContent = contentList[currentIndex];
+         
+             document.getElementById("videoContainer").style.display = "none";
+             document.getElementById("youtubeContainer").style.display = "none";
+             document.getElementById("contentContainer").style.display = "none";
+             document.getElementById("pdfContainer").style.display = "none";
+         
+             if (currentContent.type === "video") {
+                 document.getElementById("videoContainer").style.display = "block";
+                 document.getElementById("videoSource").src = currentContent.src;
+                 const videoPlayer = document.getElementById("videoPlayer");
+                 videoPlayer.load();
+                 videoPlayer.play();
+                 videoPlayer.onended = () => setTimeout(() => { currentIndex = (currentIndex + 1) % contentList.length; loadNextContent(); }, 3000);
+         
+             } else if (currentContent.type === "youtube") {
+                 document.getElementById("youtubeContainer").style.display = "block";
+                 document.getElementById("youtubePlayer").src = currentContent.src;
+                 setTimeout(() => { currentIndex = (currentIndex + 1) % contentList.length; loadNextContent(); }, 60000 + 3000);
+         
+             } else if (currentContent.type === "content") {
+                 document.getElementById("contentContainer").style.display = "flex";
+                 recordIndex = 0;
+                 loadContent(currentContent.data);
+         
+             } else if (currentContent.type === "pdf") {
+                 document.getElementById("pdfContainer").style.display = "block";
+                 loadPdf(currentContent.src);
+                 setTimeout(() => { currentIndex = (currentIndex + 1) % contentList.length; loadNextContent(); }, 10000 * pdfDoc.numPages + 3000);
+             }
+         }
+         
+         window.onload = function () {
+             scheduleMidnightRefresh();
+             fetchContent();
+         };
+      </script>
+   </body>
 </html>
