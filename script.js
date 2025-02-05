@@ -129,30 +129,33 @@ function displayContentAsCards(dataList) {
 async function loadPdf(pdfUrl) {
     try {
         pdfDoc = await pdfjsLib.getDocument(pdfUrl).promise;
-        currentPage = 1;
-        renderPage();
+        document.getElementById("pdfContainer").innerHTML = ""; // Clear old PDF
+        for (let i = 1; i <= pdfDoc.numPages; i++) {
+            await renderPage(i);
+            await new Promise(resolve => setTimeout(resolve, 5000)); // Display each page for 5 sec
+        }
+        setTimeout(() => {
+            currentIndex = (currentIndex + 1) % contentList.length;
+            loadNextContent();
+        }, 3000); // Small delay before moving to next content
     } catch (error) {
         console.error("Error loading PDF:", error);
     }
 }
 
-async function renderPage() {
-    if (!pdfDoc) return;
-    const canvas = document.getElementById("pdfCanvas");
+async function renderPage(pageNumber) {
+    const canvas = document.createElement("canvas");
+    document.getElementById("pdfContainer").appendChild(canvas);
     const ctx = canvas.getContext("2d");
-    const page = await pdfDoc.getPage(currentPage);
+    const page = await pdfDoc.getPage(pageNumber);
     const viewport = page.getViewport({ scale: 2 });
 
     canvas.width = viewport.width;
     canvas.height = viewport.height;
 
     await page.render({ canvasContext: ctx, viewport: viewport }).promise;
-
-    setTimeout(() => {
-        currentPage = currentPage < pdfDoc.numPages ? currentPage + 1 : 1;
-        renderPage();
-    }, 10000);
 }
+
 
 window.onload = function() {
     scheduleMidnightRefresh();
