@@ -1,0 +1,16 @@
+video, canvas {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+}
+
+#videoContainer, #pdfContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
