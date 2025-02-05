@@ -106,17 +106,17 @@ function displayContentAsCards(dataList) {
                 cardsHtml += `
                     <div class="col-md-4 d-flex justify-content-center align-items-center">
                         <div class="card course-card" style="background-image: url('${content.backgroundimg}');">
+                            <h4 class="card-title">${content.title}</h4>
                             <div class="card-body">
-                                <h5 class="card-title">${content.title}</h5>
                                 <p class="card-text"><strong>Type:</strong> ${content.type}</p>
                                 <p class="card-text"><strong>Location:</strong> ${content.location}</p>
                                 <p class="card-text"><strong>Instructor:</strong> ${content.instructors}</p>
                                 <p class="card-text"><strong>Timings:</strong></p>
                                 <ul class="list-unstyled card-text">
                                     ${(Array.isArray(content.timings) ? content.timings : []).map(time => `<li>${time}</li>`).join('')}
-                                </ul>
-                                <div id="qrcode-${content.id}" class="card-img mt-3"></div>
+                                </ul>                                
                             </div>
+                            <div id="qrcode-${content.id}" class="card-img mt-3"></div>
                         </div>
                     </div>
                 `;
