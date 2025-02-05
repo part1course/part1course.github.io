@@ -55,11 +55,9 @@ function loadNextContent() {
     const headDesc = document.getElementById("headDesc");
 
     document.getElementById("videoContainer").style.display = "none";
-    document.getElementById("courseContainer").style.display = "none";
-    document.getElementById("pdfContainer").style.display = "none";
-    document.getElementById("videoContainer").style.display = "none";
     document.getElementById("pdfContainer").style.display = "none";
     document.getElementById("courseContainer").style.display = "none";
+    document.getElementById("courseContainer").innerHTML = ""; // Clear content
     
     header.textContent = currentContent.headTitle || ""; 
     headDesc.textContent = currentContent.headDesc || ""; 
@@ -78,7 +76,7 @@ function loadNextContent() {
         document.getElementById("pdfContainer").style.display = "flex";
         loadPdf(currentContent.src);
     } else if (currentContent.type === "content") {
-        document.getElementById("courseContainer").style.display = "block";
+        document.getElementById("courseContainer").style.display = "flex";
         displayContentAsCards(currentContent.data);
     } else {
         console.warn("Unknown content type:", currentContent.type);
