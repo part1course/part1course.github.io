@@ -1,72 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Art of Living - Dallas Fort worth</title>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-      <!-- Include Bootstrap CSS -->
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-      <!--<link rel="stylesheet" href="styles3.css">-->
-   </head>
-   <body>
-      <div class="container-fluid">
-         <div class="row">
-            <div class="col-md-1">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Art of Living - Dallas Fort worth</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+        <!-- Include Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <!--<link rel="stylesheet" href="styles3.css">-->
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    <img alt="Art of Living Logo" src="aollogo.png" width="200" style="height: auto;/>
+                </div>
+                <div class="col-md-6">
+                    <h2 class="text-center">
+                        Welcome to the Art of Living Center for Peace, Dallas Fort Worth!
+                    </h2>
+                </div>
+                <div class="col-md-3">
+                    <img alt="Guruji Picture" src="guruji.png" width="200" style="height: auto;/>
+                </div>
             </div>
-            <div class="col-md-2">
-               <img alt="Art of Living Logo" src="aollogo.png" width="200" style="height: auto;/>
+            <div class="row">
+                <div class="col-md-12 d-flex justify-content-center align-items-center">
+                    <h3 id="headTitle">
+                        <!--Upcoming courses-->
+                    </h3>
+                </div>
             </div>
-            <div class="col-md-6">
-               <h2 class="text-center">
-                  Welcome to the Art of Living Center for Peace, Dallas Fort Worth!
-               </h2>
+            <div class="row">
+                <div class="col-md-12 d-flex justify-content-center align-items-center">
+                    <h5 id="headDesc">
+                        <!--Sub description-->
+                    </h5>
+                </div>
             </div>
-            <div class="col-md-2">
-               <img alt="Guruji Picture" src="guruji.png" width="200" style="height: auto;/>
+            <div id="videoContainer" class="row mt-5">
+                <div class="col-md-12 d-flex justify-content-center align-items-center">
+                    <video id="videoPlayer" muted autoplay>
+                        <source id="videoSource" src="" type="video/mp4" />
+                    </video>
+                </div>
             </div>
-            <div class="col-md-1">
+            <div id="pdfContainer" class="row mt-5">
+                <div class="col-md-12 d-flex justify-content-center align-items-center">
+                    <canvas id="pdfCanvas"></canvas>
+                </div>
             </div>
-         </div>
-         <div class="row">
-            <div class="col-md-12 d-flex justify-content-center align-items-center">
-               <h3 id="headTitle">
-                  <!--Upcoming courses-->
-               </h3>
+            <div id="courseContainer" class="row mt-5 d-flex justify-content-center align-items-center">
+                <div id="col1" class="col-md-4"></div>
+                <div id="col2" class="col-md-4"></div>
+                <div id="col3" class="col-md-4"></div>
             </div>
-         </div>
-         <div class="row">
-            <div class="col-md-12 d-flex justify-content-center align-items-center">
-               <h5 id="headDesc">
-                  <!--Sub description-->
-               </h5>
-            </div>
-         </div>
-         
-         <div id="videoContainer" class="row mt-5">
-            <div class="col-md-12 d-flex justify-content-center align-items-center">
-               <video id="videoPlayer" muted autoplay>
-                  <source id="videoSource" src="" type="video/mp4">
-               </video>
-            </div>
-         </div>
-         <div id="pdfContainer" class="row mt-5">
-            <div class="col-md-12 d-flex justify-content-center align-items-center">
-               <canvas id="pdfCanvas"></canvas>
-            </div>
-         </div>
-         <div id="courseContainer" class="row mt-5 d-flex justify-content-center align-items-center">
-            <div id="col1" class="col-md-4">
-            </div>
-            <div id="col2" class="col-md-4">
-            </div>
-            <div id="col3" class="col-md-4">
-            </div>
-         </div>
-      </div>
-      <script src="js/jquery.min.js"></script>
-      <script src="js/bootstrap.min.js"></script>
-      <script src="script.js"></script>
-   </body>
+        </div>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="script.js"></script>
+    </body>
 </html>
