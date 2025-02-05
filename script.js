@@ -159,6 +159,7 @@ async function renderPage() {
     const canvas = document.getElementById("pdfCanvas");
     const ctx = canvas.getContext("2d");
     const page = await pdfDoc.getPage(currentPage);
+    const container = document.getElementById("pdfContainer");
     const scale = container.clientWidth / page.getViewport({ scale: 1 }).width;
     //const viewport = page.getViewport({ scale: 0.8 }); // Adjust scale for better fit
     const viewport = page.getViewport({ scale });
