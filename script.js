@@ -157,7 +157,7 @@ async function renderPage() {
     const canvas = document.getElementById("pdfCanvas");
     const ctx = canvas.getContext("2d");
     const page = await pdfDoc.getPage(currentPage);
-    const viewport = page.getViewport({ scale: 1.5 }); // Adjust scale for better fit
+    const viewport = page.getViewport({ scale: 0.8 }); // Adjust scale for better fit
 
     canvas.width = viewport.width;
     canvas.height = viewport.height;
@@ -166,7 +166,7 @@ async function renderPage() {
 
     await renderTask.promise; // Ensure rendering completes
 
-    console.log("Page Rendered:", currentPage);
+    //console.log("Page Rendered:", currentPage);
 
     // Show next page after delay
     setTimeout(() => {
