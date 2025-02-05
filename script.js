@@ -117,7 +117,7 @@ function displayContentAsCards(dataList) {
 
     document.getElementById("courseContainer").innerHTML = cardsHtml;
     // Generate QR codes for each content item
-    dataList.data.forEach((item) => {
+    dataList.forEach((item) => {
         generateQRCode(item.details_link, `qrcode-${item.id}`);
     });
 }
