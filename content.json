@@ -23,7 +23,8 @@
             "2/16 Sunday, 7:00 AM - 9:00 PM CT",
             "2/17 Monday, 7:00 AM - 4:00 PM CT"
           ],
-          "details_link": "https://members.us.artofliving.org/us-en/course/a04Vu00000AHiuvIAD?ctype=22119"
+          "details_link": "https://members.us.artofliving.org/us-en/course/a04Vu00000AHiuvIAD?ctype=22119",
+          "backgroundimg": "https://aoldfwcentervideos.s3.us-east-1.amazonaws.com/silencbg.png"
         },
         {
           "id": 2,
@@ -36,7 +37,8 @@
             "2/16 Sunday, 6:00 PM - 8:00 PM CT",
             "2/17 Monday, 6:00 PM - 8:00 PM CT"
           ],
-          "details_link": "https://members.us.artofliving.org/us-en/course/a04Vu00000AiFLmIAN?ctype=12415"
+          "details_link": "https://members.us.artofliving.org/us-en/course/a04Vu00000AiFLmIAN?ctype=12415",
+          "backgroundimg": "https://aoldfwcentervideos.s3.us-east-1.amazonaws.com/sahajbg.png"
         }
       ]
     },
