@@ -97,10 +97,11 @@ function displayContentAsCards(dataList) {
             const content = dataList[i * 2 + j];
             if (content) {
                 cardsHtml += `
-                        <div class="card">
+                    <div class="col-md-6">
+                        <div class="card d-flex justify-content-center">
                             <!--<img src="https://via.placeholder.com/150" class="card-img-top" alt="Image">-->
                             <h5 class="card-title">${content.title}</h5>
-                            <div class="card-body">
+                            <div class="card-body d-flex justify-content-center">
                                 <p class="card-text"><strong>Type:</strong> ${content.type}</p>
                                 <p class="card-text"><strong>Location:</strong> ${content.location}</p>
                                 <p class="card-text"><strong>Instructor:</strong> ${content.instructors}</p>
@@ -111,6 +112,7 @@ function displayContentAsCards(dataList) {
                                 <div id="qrcode-${content.id}" class="mt-3"></div>
                             </div>
                         </div>
+                    </div>
                 `;
             }
         }
