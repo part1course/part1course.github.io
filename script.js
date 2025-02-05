@@ -47,6 +47,10 @@ async function fetchContent() {
 function loadNextContent() {
     if (contentList.length === 0) return;
     const currentContent = contentList[currentIndex];
+
+    console.log(currentContent);
+    console.log(currentContent.headTitle;
+    console.log(currentContent.headDesc;
     const header = document.getElementById("headTitle");
     const headDesc = document.getElementById("headDesc");
 
