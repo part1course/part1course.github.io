@@ -1,10 +1,12 @@
 {
   "contentList": [
     {
+      "headTitle": "Sample1",
       "type": "video",
       "src": "https://aoldfwcentervideos.s3.us-east-1.amazonaws.com/Sample1.mp4"
     },
     {
+      "headTitle": "Upcoming Courses",
       "type": "content",
       "data": [
         {
@@ -14,9 +16,9 @@
           "location": "2601 E State Highway 121, #309, Lewisville, TX, 75067",
           "instructors": "Vivek Rajan, Prasanna KL",
           "timings": [
-            "2/14 Friday, 6:30 PM - 9:30 PM CT"  ,
+            "2/14 Friday, 6:30 PM - 9:30 PM CT",
             "2/15 Saturday, 7:00 AM - 9:00 PM CT",
-            "2/16 Sunday, 7:00 AM - 9:00 PM CT"  ,
+            "2/16 Sunday, 7:00 AM - 9:00 PM CT",
             "2/17 Monday, 7:00 AM - 4:00 PM CT"
           ],
           "details_link": "https://members.us.artofliving.org/us-en/course/a04Vu00000AHiuvIAD?ctype=22119"
@@ -29,7 +31,7 @@
           "instructors": "Priya Gupta",
           "timings": [
             "2/15 Saturday, 6:00 PM - 8:00 PM CT",
-            "2/16 Sunday, 6:00 PM - 8:00 PM CT"  ,
+            "2/16 Sunday, 6:00 PM - 8:00 PM CT",
             "2/17 Monday, 6:00 PM - 8:00 PM CT"
           ],
           "details_link": "https://members.us.artofliving.org/us-en/course/a04Vu00000AiFLmIAN?ctype=12415"
@@ -37,14 +39,17 @@
       ]
     },
     {
+      "headTitle": "Sample2 Video",
       "type": "video",
       "src": "https://aoldfwcentervideos.s3.us-east-1.amazonaws.com/Sample2.mp4"
     },
     {
+      "headTitle": "Sample3 Video 3",
       "type": "video",
       "src": "https://aoldfwcentervideos.s3.us-east-1.amazonaws.com/Sample3.mp4"
     },
     {
+      "headTitle": "Service Projects",
       "type": "pdf",
       "src": "https://aoldfwcentervideos.s3.us-east-1.amazonaws.com/aol_service_projects.pdf"
     }
