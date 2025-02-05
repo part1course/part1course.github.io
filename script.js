@@ -48,11 +48,13 @@ function loadNextContent() {
     if (contentList.length === 0) return;
     const currentContent = contentList[currentIndex];
     const header = document.getElementById("headTitle");
+    const headDesc = document.getElementById("headDesc");
 
     document.getElementById("videoContainer").style.display = "none";
     document.getElementById("courseContainer").style.display = "none";
     document.getElementById("pdfContainer").style.display = "none";
     header.textContent = currentContent.headTitle || ""; 
+    headDesc.textContent = currentContent.headDesc || ""; 
     
     if (currentContent.type === "video") {
         document.getElementById("videoContainer").style.display = "block";
