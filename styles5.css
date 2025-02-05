@@ -50,3 +50,10 @@ video, canvas, #pdfCanvas {
 .course-card p {
     margin-bottom: 10px;
 }
+
+.qrcode-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
