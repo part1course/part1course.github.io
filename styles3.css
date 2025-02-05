@@ -92,12 +92,12 @@ video, iframe, canvas {
 /* Responsive layout for smaller screens */
 @media (max-width: 1200px) {
     .cards {
-        grid-template-columns: repeat(2, 1fr); /* 2 columns for medium screens */
+        grid-template-columns: repeat(3, 1fr); /* 2 columns for medium screens */
     }
 }
 
 @media (max-width: 768px) {
     .cards {
-        grid-template-columns: 1fr; /* 1 column for smaller screens */
+        grid-template-columns: 2fr; /* 1 column for smaller screens */
     }
 }
