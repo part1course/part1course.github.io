@@ -73,7 +73,7 @@ function loadNextContent() {
         videoPlayer.onended = () => setTimeout(() => {
             currentIndex = (currentIndex + 1) % contentList.length;
             loadNextContent();
-        }, 3000);
+        }, 1500);
     } else if (currentContent.type === "pdf") {
         document.getElementById("pdfContainer").style.display = "flex";
         loadPdf(currentContent.src);
@@ -83,7 +83,7 @@ function loadNextContent() {
             setTimeout(() => {
             currentIndex = (currentIndex + 1) % contentList.length;
             loadNextContent();
-        }, 15000);  // Increased to 10 seconds
+        }, 25000);  // Increased to 10 seconds
     } else {
         console.warn("Unknown content type:", currentContent.type);
     }
