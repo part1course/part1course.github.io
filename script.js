@@ -115,7 +115,7 @@ function displayContentAsCards(dataList) {
                                 <ul class="list-unstyled card-text">
                                     ${(Array.isArray(content.timings) ? content.timings : []).map(time => `<li>${time}</li>`).join('')}
                                 </ul>
-                                <div id="qrcode-${content.id}" class="mt-3"></div>
+                                <div id="qrcode-${content.id}" class="card-img mt-3"></div>
                             </div>
                         </div>
                     </div>
@@ -169,7 +169,7 @@ async function renderPage() {
     //console.log("Page Rendered:", currentPage);
 
     // Show next page after delay
-    setTimeout(() => {
+   /* setTimeout(() => {
         if (currentPage < pdfDoc.numPages) {
             currentPage++;
             renderPage();
@@ -179,7 +179,7 @@ async function renderPage() {
             currentIndex = (currentIndex + 1) % contentList.length;
             loadNextContent();
         }
-    }, 10000); // Each page stays for 7 seconds
+    }, 10000); */// Each page stays for 7 seconds
 }
 
 
