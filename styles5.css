@@ -1,0 +1,15 @@
+#videoContainer, #pdfContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: calc(100vh - 250px); /* Adjust height based on header size */
+    position: relative;
+    overflow: hidden; /* Prevents scrolling */
+}
+
+video, canvas {
+    max-width: 90%; /* Prevents oversizing */
+    max-height: 90%; /* Keeps within screen limits */
+    object-fit: contain; /* Ensures proper aspect ratio */
+}
