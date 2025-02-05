@@ -139,6 +139,7 @@ async function loadPdf(pdfUrl) {
         pdfDoc = await pdfjsLib.getDocument(pdfUrl).promise;
         //document.getElementById("pdfContainer").innerHTML = ""; // Clear old PDF
         for (let i = 1; i <= pdfDoc.numPages; i++) {
+            currentPage++;
             await renderPage(i);
             await new Promise(resolve => setTimeout(resolve, 10000)); // Display each page for 5 sec
         }
@@ -192,8 +193,8 @@ function adjustVideoSize() {
     const video = document.getElementById("videoPlayer");
     const container = document.getElementById("videoContainer");
 
-    video.width = container.clientWidth * 0.9; // Fit within 90% width
-    video.height = container.clientHeight * 0.9; // Fit within 90% height
+    video.width = container.clientWidth * 1; // Fit within 90% width
+    video.height = container.clientHeight * 1; // Fit within 90% height
 }
 
 window.addEventListener("resize", adjustVideoSize); 
