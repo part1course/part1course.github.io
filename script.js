@@ -68,6 +68,8 @@ function loadNextContent() {
         const videoPlayer = document.getElementById("videoPlayer");
         videoPlayer.load();
         videoPlayer.play();
+        adjustVideoSize(); // Ensure video resizes properly
+
         videoPlayer.onended = () => setTimeout(() => {
             currentIndex = (currentIndex + 1) % contentList.length;
             loadNextContent();
@@ -157,8 +159,11 @@ async function renderPage() {
     const canvas = document.getElementById("pdfCanvas");
     const ctx = canvas.getContext("2d");
     const page = await pdfDoc.getPage(currentPage);
-    const viewport = page.getViewport({ scale: 0.8 }); // Adjust scale for better fit
+    const scale = container.clientWidth / page.getViewport({ scale: 1 }).width;
+    //const viewport = page.getViewport({ scale: 0.8 }); // Adjust scale for better fit
+    const viewport = page.getViewport({ scale });
 
+    // Set canvas dimensions dynamically
     canvas.width = viewport.width;
     canvas.height = viewport.height;
 
@@ -182,8 +187,15 @@ async function renderPage() {
     }, 10000); */// Each page stays for 7 seconds
 }
 
+function adjustVideoSize() {
+    const video = document.getElementById("videoPlayer");
+    const container = document.getElementById("videoContainer");
 
+    video.width = container.clientWidth * 0.9; // Fit within 90% width
+    video.height = container.clientHeight * 0.9; // Fit within 90% height
+}
 
+window.addEventListener("resize", adjustVideoSize); 
 
 window.onload = function() {
     scheduleMidnightRefresh();
