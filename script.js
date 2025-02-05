@@ -50,7 +50,7 @@ function loadNextContent() {
     const header = document.getElementById("headTitle");
 
     document.getElementById("videoContainer").style.display = "none";
-    document.getElementById("contentContainer").style.display = "none";
+    document.getElementById("courseContainer").style.display = "none";
     document.getElementById("pdfContainer").style.display = "none";
     header.textContent = currentContent.headTitle || ""; 
     
