@@ -77,7 +77,7 @@ function loadNextContent() {
     }
 
     setTimeout(() => {
-        currentIndex = (currentIndex + 1) % dataList.length;
+        currentIndex = (currentIndex + 1) % currentContent.length;
         loadNextContent();
     }, 2000);
 }
