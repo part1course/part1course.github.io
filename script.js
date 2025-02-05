@@ -166,8 +166,11 @@ async function renderPage() {
     const viewport = page.getViewport({ scale });
 
     // Set canvas dimensions dynamically
-    canvas.width = viewport.width;
-    canvas.height = viewport.height;
+    /*canvas.width = viewport.width;
+    canvas.height = viewport.height; */
+
+    canvas.width = container.clientWidth * 1; // Fit within 90% width
+    canvas.height = container.clientHeight * 1; // Fit within 90% height
 
     const renderTask = page.render({ canvasContext: ctx, viewport: viewport });
 
