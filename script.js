@@ -83,7 +83,7 @@ function loadNextContent() {
     setTimeout(() => {
         currentIndex = (currentIndex + 1) % contentList.length;
         loadNextContent();
-    }, 2000);
+    }, 5000);
 }
 
 function displayContentAsCards(dataList) {
@@ -151,7 +151,7 @@ async function renderPage() {
     setTimeout(() => {
         currentPage = currentPage < pdfDoc.numPages ? currentPage + 1 : 1;
         renderPage();
-    }, 1000);
+    }, 5000);
 }
 
 window.onload = function() {
