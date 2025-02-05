@@ -2,11 +2,13 @@
   "contentList": [
     {
       "headTitle": "Sample1",
+      "headDesc":"S1",
       "type": "video",
       "src": "https://aoldfwcentervideos.s3.us-east-1.amazonaws.com/Sample1.mp4"
     },
     {
       "headTitle": "Upcoming Courses",
+      "headDesc":"upc",
       "type": "content",
       "data": [
         {
@@ -40,16 +42,19 @@
     },
     {
       "headTitle": "Sample2 Video",
+      "headDesc":"s2",
       "type": "video",
       "src": "https://aoldfwcentervideos.s3.us-east-1.amazonaws.com/Sample2.mp4"
     },
     {
       "headTitle": "Sample3 Video 3",
+      "headDesc":"s3",
       "type": "video",
       "src": "https://aoldfwcentervideos.s3.us-east-1.amazonaws.com/Sample3.mp4"
     },
     {
       "headTitle": "Service Projects",
+      "headDesc":"p1",
       "type": "pdf",
       "src": "https://aoldfwcentervideos.s3.us-east-1.amazonaws.com/aol_service_projects.pdf"
     }
