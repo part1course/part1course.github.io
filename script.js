@@ -81,7 +81,7 @@ function loadNextContent() {
     }
 
     setTimeout(() => {
-        currentIndex = (currentIndex + 1) % currentContent.length;
+        currentIndex = (currentIndex + 1) % contentList.length;
         loadNextContent();
     }, 2000);
 }
