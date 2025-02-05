@@ -57,11 +57,15 @@ function loadNextContent() {
     document.getElementById("videoContainer").style.display = "none";
     document.getElementById("courseContainer").style.display = "none";
     document.getElementById("pdfContainer").style.display = "none";
+    document.getElementById("videoContainer").style.display = "none";
+    document.getElementById("pdfContainer").style.display = "none";
+    document.getElementById("courseContainer").style.display = "none";
+    
     header.textContent = currentContent.headTitle || ""; 
     headDesc.textContent = currentContent.headDesc || ""; 
     
     if (currentContent.type === "video") {
-        document.getElementById("videoContainer").style.display = "block";
+        document.getElementById("videoContainer").style.display = "flex";
         document.getElementById("videoSource").src = currentContent.src;
         const videoPlayer = document.getElementById("videoPlayer");
         videoPlayer.load();
@@ -71,7 +75,7 @@ function loadNextContent() {
             loadNextContent();
         }, 3000);
     } else if (currentContent.type === "pdf") {
-        document.getElementById("pdfContainer").style.display = "block";
+        document.getElementById("pdfContainer").style.display = "flex";
         loadPdf(currentContent.src);
     } else if (currentContent.type === "content") {
         document.getElementById("courseContainer").style.display = "block";
