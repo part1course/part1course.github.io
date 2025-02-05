@@ -16,7 +16,7 @@ video, canvas, #pdfCanvas {
 
 .course-card {
     width: 100%;
-    height: 300px; /* Adjust height as needed */
+    height: 800px; /* Adjust height as needed */
     background-size: cover;
     background-position: center;
     display: flex;
@@ -37,7 +37,7 @@ video, canvas, #pdfCanvas {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6); /* Dark overlay with 60% transparency */
+    background: rgba(0, 0, 0, 0.2); /* Dark overlay with 60% transparency */
     z-index: 1;
 }
 
