@@ -1,14 +1,14 @@
 {
   "contentList": [
     {
-      "headTitle": "Sample1",
-      "headDesc":"S1",
+      "headTitle": "Gurudev Sri Sri Ravi Shankar",
+      "headDesc":" ",
       "type": "video",
-      "src": "https://aoldfwcentervideos.s3.us-east-1.amazonaws.com/Sample1.mp4"
+      "src": "https://aoldfwcentervideos.s3.us-east-1.amazonaws.com/a_biography_of_gurudev.mp4"
     },
     {
       "headTitle": "Upcoming Courses",
-      "headDesc":"upc",
+      "headDesc":" ",
       "type": "content",
       "data": [
         {
@@ -43,20 +43,20 @@
       ]
     },
     {
-      "headTitle": "Sample2 Video",
-      "headDesc":"s2",
+      "headTitle": "SKY Medical Benefits",
+      "headDesc":"By Ronnie Newman",
       "type": "video",
-      "src": "https://aoldfwcentervideos.s3.us-east-1.amazonaws.com/Sample2.mp4"
+      "src": "https://aoldfwcentervideos.s3.us-east-1.amazonaws.com/MedicalBenefits.mp4"
     },
     {
-      "headTitle": "Sample3 Video 3",
-      "headDesc":"s3",
+      "headTitle": "World Cultural Festival IV",
+      "headDesc":"Washington DC, 2023",
       "type": "video",
-      "src": "https://aoldfwcentervideos.s3.us-east-1.amazonaws.com/Sample3.mp4"
+      "src": "https://aoldfwcentervideos.s3.us-east-1.amazonaws.com/WCF.mp4"
     },
     {
       "headTitle": "Service Projects",
-      "headDesc":"p1",
+      "headDesc":"By Volunteers of Art of Living",
       "type": "pdf",
       "src": "https://aoldfwcentervideos.s3.us-east-1.amazonaws.com/aol_service_projects.pdf"
     }
