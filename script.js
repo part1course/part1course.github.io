@@ -97,19 +97,17 @@ function loadNextContent() {
 function displayContentAsCards(dataList) {
     let cardsHtml = '';
 
-    // Loop through contentList to generate up to 2 cards per row
     const rows = Math.ceil(dataList.length / 2);
     for (let i = 0; i < rows; i++) {
-        cardsHtml += '<div class="row mb-6">';  // Row for cards
+        cardsHtml += '<div class="row mb-4 d-flex justify-content-center">'; // Center align row
         for (let j = 0; j < 2; j++) {
             const content = dataList[i * 2 + j];
             if (content) {
                 cardsHtml += `
                     <div class="col-md-4 d-flex justify-content-center align-items-center">
-                        <div class="card">
-                            <!--<img src="https://via.placeholder.com/150" class="card-img-top" alt="Image">-->
-                            <h5 class="card-title">${content.title}</h5>
+                        <div class="card course-card" style="background-image: url('${content.backgroundimg}');">
                             <div class="card-body">
+                                <h5 class="card-title">${content.title}</h5>
                                 <p class="card-text"><strong>Type:</strong> ${content.type}</p>
                                 <p class="card-text"><strong>Location:</strong> ${content.location}</p>
                                 <p class="card-text"><strong>Instructor:</strong> ${content.instructors}</p>
@@ -124,10 +122,11 @@ function displayContentAsCards(dataList) {
                 `;
             }
         }
-        cardsHtml += '</div>';  // End row
+        cardsHtml += '</div>'; // End row
     }
 
     document.getElementById("courseContainer").innerHTML = cardsHtml;
+
     // Generate QR codes for each content item
     dataList.forEach((item) => {
         generateQRCode(item.details_link, `qrcode-${item.id}`);
