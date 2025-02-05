@@ -139,9 +139,9 @@ async function loadPdf(pdfUrl) {
         pdfDoc = await pdfjsLib.getDocument(pdfUrl).promise;
         //document.getElementById("pdfContainer").innerHTML = ""; // Clear old PDF
         for (let i = 1; i <= pdfDoc.numPages; i++) {
-            currentPage++;
             await renderPage(i);
             await new Promise(resolve => setTimeout(resolve, 10000)); // Display each page for 5 sec
+            currentPage++;
         }
         setTimeout(() => {
             currentIndex = (currentIndex + 1) % contentList.length;
@@ -154,42 +154,32 @@ async function loadPdf(pdfUrl) {
 
 async function renderPage() {
     if (!pdfDoc) return;
-    
-    console.log("Rendering page:", currentPage); // Debugging
+
+    console.log("Rendering page:", currentPage);
 
     const canvas = document.getElementById("pdfCanvas");
     const ctx = canvas.getContext("2d");
     const page = await pdfDoc.getPage(currentPage);
+
     const container = document.getElementById("pdfContainer");
-    const scale = container.clientWidth / page.getViewport({ scale: 1 }).width;
-    //const viewport = page.getViewport({ scale: 0.8 }); // Adjust scale for better fit
+    const containerWidth = container.clientWidth * 0.9; // Set max width to 90% of the container
+    const containerHeight = container.clientHeight * 0.9; // Set max height to 90% of the container
+
+    // Get PDF viewport and calculate scale based on width & height
+    const initialViewport = page.getViewport({ scale: 1 });
+    const scaleX = containerWidth / initialViewport.width;
+    const scaleY = containerHeight / initialViewport.height;
+    const scale = Math.min(scaleX, scaleY); // Use the smaller scale to fit within the container
+
     const viewport = page.getViewport({ scale });
 
     // Set canvas dimensions dynamically
-    /*canvas.width = viewport.width;
-    canvas.height = viewport.height; */
+    canvas.width = viewport.width;
+    canvas.height = viewport.height;
 
-    canvas.width = container.clientWidth * 1; // Fit within 90% width
-    canvas.height = container.clientHeight * 1; // Fit within 90% height
-
-    const renderTask = page.render({ canvasContext: ctx, viewport: viewport });
+    const renderTask = page.render({ canvasContext: ctx, viewport });
 
     await renderTask.promise; // Ensure rendering completes
-
-    //console.log("Page Rendered:", currentPage);
-
-    // Show next page after delay
-   /* setTimeout(() => {
-        if (currentPage < pdfDoc.numPages) {
-            currentPage++;
-            renderPage();
-        } else {
-            console.log("PDF Complete, Switching Content");
-            currentPage = 1;
-            currentIndex = (currentIndex + 1) % contentList.length;
-            loadNextContent();
-        }
-    }, 10000); */// Each page stays for 7 seconds
 }
 
 function adjustVideoSize() {
