@@ -135,7 +135,7 @@ function displayContentAsCards(dataList) {
 async function loadPdf(pdfUrl) {
     try {
         pdfDoc = await pdfjsLib.getDocument(pdfUrl).promise;
-        document.getElementById("pdfContainer").innerHTML = ""; // Clear old PDF
+        //document.getElementById("pdfContainer").innerHTML = ""; // Clear old PDF
         for (let i = 1; i <= pdfDoc.numPages; i++) {
             await renderPage(i);
             await new Promise(resolve => setTimeout(resolve, 5000)); // Display each page for 5 sec
