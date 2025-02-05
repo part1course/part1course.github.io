@@ -9,7 +9,7 @@
 }
 
 video, canvas {
-    max-width: 90%; /* Prevents oversizing */
-    max-height: 90%; /* Keeps within screen limits */
+    max-width: 100%; /* Prevents oversizing */
+    max-height: 100%; /* Keeps within screen limits */
     object-fit: contain; /* Ensures proper aspect ratio */
 }
