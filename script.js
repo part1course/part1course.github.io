@@ -47,11 +47,13 @@ async function fetchContent() {
 function loadNextContent() {
     if (contentList.length === 0) return;
     const currentContent = contentList[currentIndex];
+    const header = document.getElementById("headTitle");
 
     document.getElementById("videoContainer").style.display = "none";
-    document.getElementById("contentContainer").style.display = "block";
+    document.getElementById("contentContainer").style.display = "none";
     document.getElementById("pdfContainer").style.display = "none";
-
+    header.textContent = currentContent.headTitle || ""; 
+    
     if (currentContent.type === "video") {
         document.getElementById("videoContainer").style.display = "block";
         document.getElementById("videoSource").src = currentContent.src;
@@ -110,7 +112,7 @@ function displayContentAsCards(dataList) {
         cardsHtml += '</div>';  // End row
     }
 
-    document.getElementById("contentCards").innerHTML = cardsHtml;
+    document.getElementById("courseContainer").innerHTML = cardsHtml;
     // Generate QR codes for each content item
     currentContent.data.forEach((item) => {
         generateQRCode(item.details_link, `qrcode-${item.id}`);
