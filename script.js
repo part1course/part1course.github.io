@@ -68,6 +68,7 @@ function loadNextContent() {
         document.getElementById("pdfContainer").style.display = "block";
         loadPdf(currentContent.src);
     } else if (currentContent.type === "content") {
+        document.getElementById("courseContainer").style.display = "block";
         displayContentAsCards(currentContent.data);
     } else {
         console.warn("Unknown content type:", currentContent.type);
