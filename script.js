@@ -145,18 +145,32 @@ async function loadPdf(pdfUrl) {
     }
 }
 
-async function renderPage(pageNumber) {
-    const canvas = document.createElement("canvas");
-    document.getElementById("pdfContainer").appendChild(canvas);
+async function renderPage() {
+    if (!pdfDoc) return;
+    
+    const canvas = document.getElementById("pdfCanvas");
     const ctx = canvas.getContext("2d");
-    const page = await pdfDoc.getPage(pageNumber);
+    const page = await pdfDoc.getPage(currentPage);
     const viewport = page.getViewport({ scale: 2 });
 
     canvas.width = viewport.width;
     canvas.height = viewport.height;
 
     await page.render({ canvasContext: ctx, viewport: viewport }).promise;
+
+    // Wait for 5 seconds per page before switching to the next
+    setTimeout(() => {
+        if (currentPage < pdfDoc.numPages) {
+            currentPage++;
+            renderPage();
+        } else {
+            currentPage = 1;
+            currentIndex = (currentIndex + 1) % contentList.length;
+            loadNextContent();
+        }
+    }, 5000); // Increase delay per page
 }
+
 
 
 window.onload = function() {
