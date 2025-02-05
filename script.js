@@ -78,6 +78,10 @@ function loadNextContent() {
     } else if (currentContent.type === "content") {
         document.getElementById("courseContainer").style.display = "flex";
         displayContentAsCards(currentContent.data);
+            setTimeout(() => {
+            currentIndex = (currentIndex + 1) % contentList.length;
+            loadNextContent();
+        }, 5000);  // Increased to 10 seconds
     } else {
         console.warn("Unknown content type:", currentContent.type);
     }
