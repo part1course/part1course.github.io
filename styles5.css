@@ -25,7 +25,7 @@ video, canvas, #pdfCanvas {
     text-align: center;
     border-radius: 15px; /* Smooth edges */
     padding: 20px;
-    color: white; /* Text color for contrast */
+    color: black; /* Text color for contrast */
     position: relative;
     overflow: hidden;
 }
