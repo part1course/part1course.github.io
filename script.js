@@ -138,7 +138,7 @@ async function loadPdf(pdfUrl) {
         //document.getElementById("pdfContainer").innerHTML = ""; // Clear old PDF
         for (let i = 1; i <= pdfDoc.numPages; i++) {
             await renderPage(i);
-            await new Promise(resolve => setTimeout(resolve, 5000)); // Display each page for 5 sec
+            await new Promise(resolve => setTimeout(resolve, 10000)); // Display each page for 5 sec
         }
         setTimeout(() => {
             currentIndex = (currentIndex + 1) % contentList.length;
@@ -179,7 +179,7 @@ async function renderPage() {
             currentIndex = (currentIndex + 1) % contentList.length;
             loadNextContent();
         }
-    }, 7000); // Each page stays for 7 seconds
+    }, 10000); // Each page stays for 7 seconds
 }
 
 
