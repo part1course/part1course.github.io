@@ -1,5 +1,5 @@
 html, body {
-    margin: 0;
+    /*margin: 0;
     padding: 0;
     width: 100vw;
     height: 100vh;
@@ -9,7 +9,7 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
+    text-align: center;*/
     background-image: url('background2.png');
     background-size: cover;
     background-repeat: no-repeat;
