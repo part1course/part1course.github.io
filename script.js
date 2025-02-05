@@ -152,28 +152,36 @@ async function loadPdf(pdfUrl) {
 async function renderPage() {
     if (!pdfDoc) return;
     
+    console.log("Rendering page:", currentPage); // Debugging
+
     const canvas = document.getElementById("pdfCanvas");
     const ctx = canvas.getContext("2d");
     const page = await pdfDoc.getPage(currentPage);
-    const viewport = page.getViewport({ scale: 2 });
+    const viewport = page.getViewport({ scale: 1.5 }); // Adjust scale for better fit
 
     canvas.width = viewport.width;
     canvas.height = viewport.height;
 
-    await page.render({ canvasContext: ctx, viewport: viewport }).promise;
+    const renderTask = page.render({ canvasContext: ctx, viewport: viewport });
 
-    // Wait for 5 seconds per page before switching to the next
+    await renderTask.promise; // Ensure rendering completes
+
+    console.log("Page Rendered:", currentPage);
+
+    // Show next page after delay
     setTimeout(() => {
         if (currentPage < pdfDoc.numPages) {
             currentPage++;
             renderPage();
         } else {
+            console.log("PDF Complete, Switching Content");
             currentPage = 1;
             currentIndex = (currentIndex + 1) % contentList.length;
             loadNextContent();
         }
-    }, 5000); // Increase delay per page
+    }, 7000); // Each page stays for 7 seconds
 }
+
 
 
 
