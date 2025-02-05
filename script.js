@@ -86,10 +86,10 @@ function loadNextContent() {
         console.warn("Unknown content type:", currentContent.type);
     }
 
-    setTimeout(() => {
+    /*setTimeout(() => {
         currentIndex = (currentIndex + 1) % contentList.length;
         loadNextContent();
-    }, 10000);
+    }, 10000);*/
 }
 
 function displayContentAsCards(dataList) {
