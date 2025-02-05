@@ -48,9 +48,9 @@ function loadNextContent() {
     if (contentList.length === 0) return;
     const currentContent = contentList[currentIndex];
 
-    console.log(currentContent);
+    /*console.log(currentContent);
     console.log(currentContent.headTitle);
-    console.log(currentContent.headDesc);
+    console.log(currentContent.headDesc);*/
     const header = document.getElementById("headTitle");
     const headDesc = document.getElementById("headDesc");
 
@@ -83,7 +83,7 @@ function loadNextContent() {
     setTimeout(() => {
         currentIndex = (currentIndex + 1) % contentList.length;
         loadNextContent();
-    }, 5000);
+    }, 10000);
 }
 
 function displayContentAsCards(dataList) {
@@ -97,11 +97,10 @@ function displayContentAsCards(dataList) {
             const content = dataList[i * 2 + j];
             if (content) {
                 cardsHtml += `
-                    <div class="col-md-6">
-                        <div class="card">
+                        <div class="card d-flex justify-content-center align-items-center">
                             <!--<img src="https://via.placeholder.com/150" class="card-img-top" alt="Image">-->
-                            <div class="card-body">
-                                <h5 class="card-title">${content.title}</h5>
+                            <h5 class="card-title">${content.title}</h5>
+                            <div class="card-body d-flex justify-content-center align-items-center">
                                 <p class="card-text"><strong>Type:</strong> ${content.type}</p>
                                 <p class="card-text"><strong>Location:</strong> ${content.location}</p>
                                 <p class="card-text"><strong>Instructor:</strong> ${content.instructors}</p>
@@ -112,7 +111,6 @@ function displayContentAsCards(dataList) {
                                 <div id="qrcode-${content.id}" class="mt-3"></div>
                             </div>
                         </div>
-                    </div>
                 `;
             }
         }
@@ -151,7 +149,7 @@ async function renderPage() {
     setTimeout(() => {
         currentPage = currentPage < pdfDoc.numPages ? currentPage + 1 : 1;
         renderPage();
-    }, 5000);
+    }, 10000);
 }
 
 window.onload = function() {
