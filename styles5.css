@@ -8,7 +8,7 @@
     overflow: hidden; /* Prevents scrolling */
 }
 
-video, canvas {
+video, canvas, #pdfCanvas {
     max-width: 100%; /* Prevents oversizing */
     max-height: 100%; /* Keeps within screen limits */
     object-fit: contain; /* Ensures proper aspect ratio */
