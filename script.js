@@ -140,9 +140,9 @@ async function loadPdf(pdfUrl) {
         pdfDoc = await pdfjsLib.getDocument(pdfUrl).promise;
         //document.getElementById("pdfContainer").innerHTML = ""; // Clear old PDF
         for (let i = 1; i <= pdfDoc.numPages; i++) {
+            currentPage = i;
             await renderPage(i);
-            await new Promise(resolve => setTimeout(resolve, 10000)); // Display each page for 5 sec
-            currentPage++;
+            await new Promise(resolve => setTimeout(resolve, 10000)); // Display each page for 5 sec            
         }
         setTimeout(() => {
             currentIndex = (currentIndex + 1) % contentList.length;
